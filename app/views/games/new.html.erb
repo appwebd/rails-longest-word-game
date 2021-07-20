@@ -1,0 +1,23 @@
+<h1>New game</h1>
+<div class="grid">
+  <% @letter.each { |item| %>
+    <span class="letters" > <%=  item  %> </span> &nbsp;&nbsp;
+  <% } %>
+</div>
+
+<br>
+<br>
+<br>
+<form action="/score" method="post" id="form">
+
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <label for="word">What is your longest word?
+  <br>
+  <input type="text"
+         name="word"
+         id="word"
+         placeholder="What's your longest word?"
+         required>
+  </label>
+  <input type="submit" value="Play!">
+</form>
