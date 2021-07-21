@@ -21,7 +21,7 @@ class GamesController < ApplicationController
 
   # runs the game and return detailed hash of result (with `:score`, `:message` and `:time` keys)
   def run_game(attempt, grid, start_time, end_time)
-    @result = { time: start_time - end_time }
+    @result = { time: end_time - start_time }
 
     type = get_type_error(attempt, grid)
     message = get_message(type)
