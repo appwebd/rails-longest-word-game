@@ -12,7 +12,6 @@ class GamesController < ApplicationController
     @start_time = params[:start_time].to_datetime
     @end_time = DateTime.current
     @letters = params[:available_letters]
-    #@result = { time: 0, score: 0, message: 'hola' }
     @compute = run_game(@attempt, @letters, @start_time, @end_time)
   end
 
