@@ -9,7 +9,7 @@ class GamesController < ApplicationController
 
   def score
     @attempt = params[:word]
-    @start_time = params[:start_time]
+    @start_time = params[:start_time].to_datetime
     @end_time = DateTime.current
     @letters = params[:available_letters]
     #@result = { time: 0, score: 0, message: 'hola' }
