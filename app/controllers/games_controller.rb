@@ -1,14 +1,19 @@
+require 'open-uri'
+require 'json'
+
 class GamesController < ApplicationController
   def new
-    @letter = generate_grid(9)
-    @start_time = Time.now
+    @letters = generate_grid(9)
+    @start_time = DateTime.current
   end
 
   def score
-    @end_time = Time.now
     @attempt = params[:word]
-
-    @compute = run_game(@attempt, @letter, @start_time, @end_time)
+    @start_time = params[:start_time]
+    @end_time = DateTime.current
+    @letters = params[:available_letters]
+    #@result = { time: 0, score: 0, message: 'hola' }
+    @compute = run_game(@attempt, @letters, @start_time, @end_time)
   end
 
   def generate_grid(grid_size)
@@ -17,8 +22,7 @@ class GamesController < ApplicationController
 
   # runs the game and return detailed hash of result (with `:score`, `:message` and `:time` keys)
   def run_game(attempt, grid, start_time, end_time)
-
-    @result = { time: end_time - start_time }
+    @result = { time: start_time - end_time }
 
     type = get_type_error(attempt, grid)
     message = get_message(type)
@@ -29,7 +33,6 @@ class GamesController < ApplicationController
     @result[:message] = message
 
     @result
-
   end
 
   def compute_score(attempt, time_taken)
@@ -37,7 +40,7 @@ class GamesController < ApplicationController
   end
 
   def english_word?(word)
-    response = URI.open("https://wagon-dictionary.herokuapp.com/#{word}")
+    response = open("https://wagon-dictionary.herokuapp.com/#{word}")
     json = JSON.parse(response.read)
     json['found']
   end
@@ -66,6 +69,6 @@ class GamesController < ApplicationController
   end
 
   def included_word?(guess, grid)
-    guess.chars.all? { |letter| guess.count(letter) <= grid.count(letter) }
+    guess.chars.all? { |char| guess.count(char) <= grid.count(char) }
   end
 end

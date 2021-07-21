@@ -1,7 +1,13 @@
 
-<h2>
-  Your word: <%=#{attempt}%><br>
-  Time Taken to answer: <%=#{result[:time]}%><br>
-  Your score: <%=#{result[:score]}%><br>
-  Message: <%=#{result[:message]}%><br>
-</h2>
+<h2> Result </h2>
+
+  Start time: <%= @start_time%><br>
+  End Time:   <%= @end_time%><br>
+  Your word:  <%= @attempt%><br>
+  Grid letters: <%= @letters%> <br>
+
+  Time Taken to answer: <%= @result[:time]%><br>
+  Your score: <%= @result[:score]%><br>
+  Message: <%= @result[:message]%><br>
+
+<%= link_to 'Play again', 'new' %>

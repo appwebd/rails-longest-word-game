@@ -1,6 +1,8 @@
 <h1>New game</h1>
 <div class="grid">
-  <% @letter.each { |item| %>
+
+  <%
+    @letters.each { |item| %>
     <span class="letters" > <%=  item  %> </span> &nbsp;&nbsp;
   <% } %>
 </div>
@@ -11,6 +13,9 @@
 <form action="/score" method="post" id="form">
 
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <%= hidden_field_tag :start_time, @start_time %>
+  <%= hidden_field_tag :available_letters, @letters.join(" ") %>
+
   <label for="word">What is your longest word?
   <br>
   <input type="text"
@@ -19,5 +24,5 @@
          placeholder="What's your longest word?"
          required>
   </label>
-  <input type="submit" value="Play!">
+  <input type="submit" value="Play">
 </form>
