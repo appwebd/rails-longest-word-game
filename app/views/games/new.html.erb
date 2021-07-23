@@ -1,28 +1,24 @@
 <h1>New game</h1>
-<div class="grid">
 
-  <%
-    @letters.each { |item| %>
-    <span class="letters" > <%=  item  %> </span> &nbsp;&nbsp;
-  <% } %>
-</div>
+<ul class="letters">
+  <% @letters.each do |letter| %>
+    <li><%= letter %></li>
+  <% end %>
+</ul>
 
-<br>
-<br>
-<br>
-<form action="/score" method="post" id="form">
+<p class="form-prefix">What is the longest word you can find?</p>
 
+<form action="/score" method="POST" class="form-inline">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <%= hidden_field_tag :letters, @letters %>
+
   <%= hidden_field_tag :start_time, @start_time %>
   <%= hidden_field_tag :available_letters, @letters.join(" ") %>
 
-  <label for="word">What is your longest word?
-  <br>
-  <input type="text"
-         name="word"
-         id="word"
-         placeholder="What's your longest word?"
-         required>
-  </label>
-  <input type="submit" value="Play">
+  <div class="input-group input-group">
+    <input type="text" name="word" class="form-control">
+    <span class="input-group-btn">
+      <input type="submit" value="Play" class="btn btn-default">
+    </span>
+  </div>
 </form>
